@@ -163,12 +163,123 @@ public class Main {
 
 class FictionBookLibrary {
     // PLACE YOUR CODE HERE
+	private java.util.List<BookCollection> listOfCollections;
+    
+    public FictionBookLibrary() {
+        listOfCollections = new java.util.ArrayList<>();
+    }
+    
+    public void addCollection(Book book, int numbOfCopy){
+        
+        listOfCollections.add(new BookCollection(numbOfCopy, book));
+//        hmBooks.put(idx, book);
+    }
+    
+    public java.util.List<Book> listBooksAuthoredBy(String author){        
+        java.util.List<Book> tmp =  new java.util.ArrayList<>();
+        for (BookCollection bn : listOfCollections) {
+            boolean flag = bn.book.getAuthor().equalsIgnoreCase(author);
+            if(flag){
+                tmp.add(bn.book);
+            }
+        }
+
+        return tmp;
+    }
+    
+    public java.util.List<Book> listAvailableBooks(){
+        java.util.List<Book> tmp =  new java.util.ArrayList<>();
+        for (BookCollection bn : listOfCollections) {
+            tmp.add(bn.book);
+        }
+        return tmp;
+    }
+    
+    public Member createMember(String name){
+        return new Member(name, listOfCollections);
+//                return new Member(name, hmBooks);
+    }
+    
+    public class BookCollection{
+        private int numbOfCopy;
+        private Book book;
+
+        public BookCollection(int numbOfCopy, Book book) {
+            this.numbOfCopy = numbOfCopy;
+            this.book = book;
+        }
+
+        public int getNumbOfCopy() {
+            return numbOfCopy;
+        }
+
+        public Book getBook() {
+            return book;
+        }
+
+        public void setNumbOfCopy(int numbOfCopy) {
+            this.numbOfCopy = numbOfCopy;
+        }
+
+        public void setBook(Book book) {
+            this.book = book;
+        }
+        
+        
+    }
 }
 
 class Book {
     // PLACE YOUR CODE HERE
+		private String author;
+        private String title;
+        public Book(String title, String author) {
+            this.author = author;
+            this.title = title;
+        }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean flag = false;
+        if (obj instanceof Book){
+            Book b = (Book) obj;
+            flag = b.author.equalsIgnoreCase(this.author) && b.title.equalsIgnoreCase(this.title);
+        }
+        return flag;
+//        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
+    }
 }
 
 class Member {
     // PLACE YOUR CODE HERE
+	    private String memberName;
+    private java.util.List<Book> borrowedBooks;
+    private java.util.List<FictionBookLibrary.BookCollection> listOfCollections;
+    
+    public Member(String memberName,java.util.List<FictionBookLibrary.BookCollection> listOfCollections ) {
+        this.memberName = memberName;
+        borrowedBooks = new java.util.ArrayList<>();
+        this.listOfCollections = listOfCollections;
+    }
+    
+    public void borrow(Book book) {
+        for (FictionBookLibrary.BookCollection bn : listOfCollections) {
+            if(bn.getBook().equals(book) && bn.getNumbOfCopy() > 0){
+                bn.setNumbOfCopy( bn.getNumbOfCopy()-1 );
+                borrowedBooks.add(book);
+            } 
+        }
+     }
+
+    public java.util.List<Book> listBorrowedBooks() {
+        return borrowedBooks;
+    }
 }
