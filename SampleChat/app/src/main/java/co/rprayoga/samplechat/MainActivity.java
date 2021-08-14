@@ -1,10 +1,8 @@
-package co.rprayoga.samplechat.ui;
+package co.rprayoga.samplechat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-
-import co.rprayoga.samplechat.R;
 
 public class MainActivity extends AppCompatActivity {
 
