@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Sample Chat</string>
+    <string name="shared_preference_name">SampleChat.co</string>
+    <string name="user_email">UserEmail</string>
+    <string name="user_name">UserName</string>
+    <string name="user_avatar">UserAvatar</string>
+    <string name="user_id">UserId</string>
+</resources>
