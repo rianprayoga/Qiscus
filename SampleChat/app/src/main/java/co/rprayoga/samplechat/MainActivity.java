@@ -43,17 +43,17 @@ public class MainActivity extends AppCompatActivity {
                     !etPassword.getText().toString().isEmpty() &&
                     !etUsername.getText().toString().isEmpty()) {
 
-                String tmpEmail = "john.baum@none.mail.com";
-                String tmpUserName = "JohnBaum";
-                String tmpPswd = "12345";
-
+//                String tmpEmail = "john.baum@none.mail.com";
+//                String tmpUserName = "JohnBaum";
+//                String tmpPswd = "12345";
+//
 //                String tmpEmail = "john.doe@none.mail.com";
 //                String tmpUserName = "JohnDoe";
 //                String tmpPswd = "12345";
 //                chatroomId 49310180
-//                QiscusCore.setUser(etEmail.getText().toString(), etPassword.getText().toString())
-                QiscusCore.setUser(tmpEmail, tmpPswd)
-                        .withUsername(tmpUserName)
+                QiscusCore.setUser(etEmail.getText().toString(), etPassword.getText().toString())
+//                QiscusCore.setUser(tmpEmail, tmpPswd)
+                        .withUsername(etUsername.getText().toString())
                         .save(new QiscusCore.SetUserListener() {
                             @Override
                             public void onSuccess(QiscusAccount qiscusAccount) {
