@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             if (!etEmail.getText().toString().isEmpty() &&
                     !etPassword.getText().toString().isEmpty() &&
                     !etUsername.getText().toString().isEmpty()) {
+
                 String tmpEmail = "john.baum@none.mail.com";
                 String tmpUserName = "JohnBaum";
                 String tmpPswd = "12345";

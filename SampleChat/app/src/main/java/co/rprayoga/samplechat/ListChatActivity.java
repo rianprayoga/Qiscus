@@ -24,7 +24,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class ListChatActivity extends AppCompatActivity {
+public class ListChatActivity extends AppCompatActivity implements ListChatAdapter.SetOnClickListener {
     private SharedPreferences sharedPreferences;
     private static final String TAG = "ListChatActivity";
     private RecyclerView rvChatRooms;
@@ -38,9 +38,11 @@ public class ListChatActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences(getString(R.string.shared_preference_name), MODE_PRIVATE);
         String tmp = sharedPreferences.getString(getString(R.string.user_email), null);
-        getSupportActionBar().setTitle(tmp);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setTitle(tmp);
+        }
 
-        listChatAdapter = new ListChatAdapter(new ArrayList<>());
+        listChatAdapter = new ListChatAdapter(new ArrayList<>(),this, this);
         rvChatRooms.setLayoutManager(new LinearLayoutManager(this));
         rvChatRooms.setAdapter(listChatAdapter);
 
@@ -55,7 +57,9 @@ public class ListChatActivity extends AppCompatActivity {
                 .subscribe(new Action1<List<QiscusChatRoom>>() {
                     @Override
                     public void call(List<QiscusChatRoom> qiscusChatRooms) {
+//                        qiscusChatRooms[]
                         listChatAdapter.updateAdapterData(qiscusChatRooms);
+//                        Log.e(TAG, "call: " + qiscusChatRooms.get(0).get );
                     }
                 });
     }
@@ -74,7 +78,7 @@ public class ListChatActivity extends AppCompatActivity {
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }else if(item.getItemId() == R.id.action_create_room){
-            chatUser();
+            //chatUser();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -92,5 +96,15 @@ public class ListChatActivity extends AppCompatActivity {
                         Log.e(TAG, "call: " + qiscusChatRoom.getId() );
                     }
                 });
+    }
+
+    @Override
+    public void onItemClickListener(int position) {
+        QiscusChatRoom chatRoom = listChatAdapter.getData().get(position);
+        startActivity(
+                new Intent(this, ChatRoomActivity.class)
+                        .putExtra("chat_room", chatRoom)
+                );
+//        Log.e(TAG, "onItemClickListener: " + position );
     }
 }
