@@ -17,6 +17,10 @@ import com.qiscus.sdk.chat.core.data.model.QiscusChatRoom;
 import com.qiscus.sdk.chat.core.data.model.QiscusComment;
 import com.qiscus.sdk.chat.core.data.model.QiscusRoomMember;
 import com.qiscus.sdk.chat.core.data.remote.QiscusApi;
+import com.qiscus.sdk.chat.core.event.QiscusCommentReceivedEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Collections;
 import java.util.List;
@@ -89,13 +93,21 @@ public class ChatRoomActivity extends AppCompatActivity {
                 });
     }
 
+    @Subscribe
+    public void onReceiveComment(QiscusCommentReceivedEvent event) {
+        QiscusComment c = event.getQiscusComment();
+        adapter.
+        Log.e(TAG, "onReceiveComment: " + c.getSenderEmail() );
+    }
     @Override
     protected void onResume() {
         super.onResume();
+        EventBus.getDefault().register(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 }
