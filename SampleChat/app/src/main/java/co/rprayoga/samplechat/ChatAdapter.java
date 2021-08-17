@@ -26,6 +26,11 @@ public class ChatAdapter extends RecyclerView.Adapter {
 
     private static final String TAG = "ChatAdapter";
 
+    public void addData(QiscusComment comment){
+        chatList.add(comment);
+        notifyDataSetChanged();
+    }
+
     public void setData(List<QiscusComment> data){
         chatList = data;
         notifyDataSetChanged();
@@ -83,14 +88,11 @@ public class ChatAdapter extends RecyclerView.Adapter {
         private TextView tvSender, tvMessage;
         public SentMessageHolder(View itemView) {
             super(itemView);
-//            tvSender = itemView.findViewById(R.id.tvSender);
             tvMessage = itemView.findViewById(R.id.tvMessage);
         }
 
         void bind(QiscusComment chat){
-//            if(setVisibleSender) tvSender.setVisibility(View.GONE);
             tvMessage.setText(chat.getMessage());
-//            tvSender.setText(chat.getSender());
         }
     }
 

@@ -96,7 +96,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     @Subscribe
     public void onReceiveComment(QiscusCommentReceivedEvent event) {
         QiscusComment c = event.getQiscusComment();
-        adapter.
+        adapter.addData(c);
         Log.e(TAG, "onReceiveComment: " + c.getSenderEmail() );
     }
     @Override
